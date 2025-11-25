@@ -8,40 +8,44 @@ name: Ruby on Rails CI (test)
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    name: Ruby on Rails CI (test)
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    on:
+      push:
+        branches: [ main ]
+      pull_request:
+        branches: [ main ]
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.4
+    jobs:
+      test:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v3
 
-      - name: Install system packages
-        run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends -y libsqlite3-dev
+          - name: Set up Ruby
+            uses: ruby/setup-ruby@v1
+            with:
+              ruby-version: 3.4
 
-      - name: Install gems
-        run: |
-          gem install bundler
-          bundle install --jobs 4 --retry 3
+          - name: Install system packages
+            run: |
+              sudo apt-get update
+              sudo apt-get install --no-install-recommends -y libsqlite3-dev
 
-      - name: Prepare test database
-        env:
-          RAILS_ENV: test
-        run: |
-          bundle exec rails db:create db:schema:load
+          - name: Install gems
+            run: |
+              gem install bundler
+              bundle install --jobs 4 --retry 3
 
-      - name: Run tests
-        env:
-          RAILS_ENV: test
-        run: |
-          bundle exec rails test
+          - name: Prepare test database
+            env:
+              RAILS_ENV: test
+            run: |
+              bundle exec rails db:create db:schema:load
+
+          - name: Run tests
+            env:
+              RAILS_ENV: test
+            run: |
+              bundle exec rails test

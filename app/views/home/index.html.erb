@@ -1,23 +1,65 @@
-<header class="w-full bg-white shadow-sm border-b">
-	<div class="container mx-auto px-4 py-8">
-		<nav class="flex items-center justify-center">
-			<!-- Placeholder for future nav/logo -->
-		</nav>
-	</div>
-</header>
-
-<main class="min-h-screen flex items-center justify-center bg-gradient-to-br">
-	<div class="container mx-auto px-4 text-center">
-		<div class="max-w-3xl mx-auto">
-			<h1 class="text-4xl md:text-6xl font-extrabold">Hello World App</h1>
-			<p class="mt-4 text-lg md:text-xl text-gray-700">A minimal Rails starter demonstrating a modern, responsive homepage built with Tailwind-style utility classes (no Tailwind required). Use this page as the base for your marketing or landing content.</p>
-
-			<div class="mt-8">
-				<div class="hero-card">
-					<p class="text-gray-700">Centered, responsive layout — scales across devices using small, reusable utility classes defined in <code>app/assets/stylesheets/application.css</code>.</p>
-				</div>
+<header class="site-header w-full">
+	<div class="container mx-auto px-6 py-6 header-inner">
+		<div class="brand flex items-center gap-4">
+			<div class="brand-logo" aria-hidden="true">CHU</div>
+			<div>
+				<div class="brand-name">CHU Helora</div>
+				<div class="brand-sub">Centre hospitalier universitaire — Présentation des activités médicales</div>
 			</div>
 		</div>
 	</div>
+</header>
+
+<main class="main-hero">
+	<div class="container mx-auto px-6 py-20 text-center">
+		<div class="hero-inner max-w-4xl mx-auto">
+			<h1 class="hero-title">Hello World App</h1>
+			<p class="hero-sub">Une vitrine statique pour présenter des activités médicales, pensée pour l'équipe du CHU — responsive, claire et accessible.</p>
+
+			<div class="cta-row mt-8">
+				<a class="btn-primary" href="#activities">Découvrir nos activités</a>
+			</div>
+
+			<div id="activities" class="activities-grid mt-12">
+				<article class="card">
+					<h3 class="card-title">Cardiologie</h3>
+					<p class="card-lead">Consultations spécialisées, explorations non invasives et parcours de réadaptation cardiaque.</p>
+					<ul class="card-list">
+						<li>Électrocardiogramme</li>
+						<li>Échocardiographie</li>
+						<li>Réhabilitation post-infarctus</li>
+					</ul>
+				</article>
+
+				<article class="card">
+					<h3 class="card-title">Pédiatrie</h3>
+					<p class="card-lead">Soins pour les nouveau-nés, consultations de suivi et urgences pédiatriques.</p>
+					<ul class="card-list">
+						<li>Suivi néonatal</li>
+						<li>Vaccinations et prévention</li>
+						<li>Consultations spécialisées</li>
+					</ul>
+				</article>
+
+				<article class="card">
+					<h3 class="card-title">Médecine Interne</h3>
+					<p class="card-lead">Prise en charge globale des pathologies complexes et coordination des parcours patients.</p>
+					<ul class="card-list">
+						<li>Bilans diagnostiques</li>
+						<li>Coordination pluridisciplinaire</li>
+						<li>Soins ambulatoires</li>
+					</ul>
+				</article>
+			</div>
+
+			<div class="note mt-12">Contenu fictif à des fins de démonstration — pas de données patient réelles.</div>
+		</div>
+	</div>
 </main>
+
+<footer class="site-footer">
+	<div class="container mx-auto px-6 py-6 text-center">
+		<small>CHU Helora — Présentation statique • &copy; 2025</small>
+	</div>
+</footer>
 

@@ -64,3 +64,45 @@
 	*{transition:none!important;animation:none!important}
 }
 
+/* -----------------------------
+	 CHU Helora brand + layout
+	 ----------------------------- */
+
+:root{
+	--helora-primary: #0b5fa5; /* deep blue */
+	--helora-accent: #00a39a;  /* teal */
+	--helora-muted: #6b7280;   /* gray-500 */
+	--helora-bg: #f5f9fc;      /* very light */
+	--helora-card: #ffffff;
+}
+
+.site-header{background:linear-gradient(90deg,var(--helora-primary),var(--helora-accent));color:var(--helora-card)}
+.header-inner{display:flex;align-items:center;justify-content:space-between}
+.brand{align-items:center}
+.brand-logo{width:56px;height:56px;border-radius:10px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--helora-card)}
+.brand-name{font-weight:700}
+.brand-sub{font-size:0.9rem;color:rgba(255,255,255,0.9)}
+
+.main-hero{background:linear-gradient(180deg, rgba(11,95,165,0.06), rgba(0,163,154,0.02));}
+.hero-inner{padding:2rem}
+.hero-title{font-size:2.5rem;line-height:1.05;margin:0;color:var(--helora-primary);font-weight:800}
+.hero-sub{color:var(--helora-muted);margin-top:0.75rem;font-size:1.125rem}
+.cta-row{display:flex;justify-content:center}
+.btn-primary{display:inline-block;background:var(--helora-primary);color:var(--helora-card);padding:0.75rem 1.25rem;border-radius:0.6rem;text-decoration:none;font-weight:600;box-shadow:0 8px 20px rgba(11,95,165,0.12)}
+.btn-primary:hover{transform:translateY(-2px)}
+
+.activities-grid{display:grid;grid-template-columns:1fr;gap:1rem}
+.card{background:var(--helora-card);padding:1.25rem;border-radius:0.75rem;box-shadow:0 6px 18px rgba(10,10,10,0.06);text-align:left}
+.card-title{margin:0 0 0.5rem 0;color:var(--helora-primary);font-size:1.25rem}
+.card-lead{color:var(--helora-muted);margin-bottom:0.75rem}
+.card-list{margin:0;padding-left:1.25rem;color:var(--helora-muted)}
+.note{color:var(--helora-muted);font-size:0.9rem}
+
+.site-footer{background:#ffffff;border-top:1px solid rgba(11,95,165,0.04);color:var(--helora-muted)}
+
+@media(min-width:768px){
+	.hero-title{font-size:3.5rem}
+	.activities-grid{grid-template-columns:repeat(3,1fr);gap:1.5rem}
+}
+
+

@@ -1,0 +1,35 @@
+name: Ruby on Rails CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.4
+
+    - name: Install dependencies
+      run: bundle install --jobs 4 --retry 3
+
+    - name: Setup Database for Tests
+      run: bin/rails db:create db:migrate
+
+    - name: Run tests
+      run: bin/rails test
+
+    - name: Deploy to Render
+      if: github.ref == 'refs/heads/main' && success()
+      uses: render-examples/deploy@v1
+      with:
+        api_key: ${{ secrets.RENDER_API_KEY }}
+        service_id: ${{ secrets.RENDER_SERVICE_ID }}

@@ -1,23 +1,17 @@
 # config/database.yml
 
 default: &default
-  adapter: postgresql
-  encoding: unicode
+  adapter: sqlite3
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
 
 development:
   <<: *default
-  database: hello_world_app_development
-  host: localhost
-  username: hello_world_app
-  password: <%= ENV['HELLO_WORLD_APP_DATABASE_PASSWORD'] %>
+  database: db/development.sqlite3
 
 test:
   <<: *default
-  database: hello_world_app_test
-  host: localhost
-  username: hello_world_app
-  password: <%= ENV['HELLO_WORLD_APP_DATABASE_PASSWORD'] %>
+  database: db/test.sqlite3
 
 production:
   <<: *default

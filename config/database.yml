@@ -1,23 +1,15 @@
 default: &default
-pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-timeout: 5000
+  adapter: sqlite3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
 
 development:
-<<: *default
-adapter: sqlite3
-database: db/development.sqlite3
+  <<: *default
+  database: db/development.sqlite3
 
 test:
-<<: *default
-adapter: sqlite3
-database: db/test.sqlite3
+  <<: *default
+  database: db/test.sqlite3
 
 production:
-<<: *default
-adapter: postgresql
-url: <%= ENV['DATABASE_URL'] %>
-pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-
-# optional: add SSL if needed
-
-# sslmode: require
+  url: <%= ENV['DATABASE_URL'] %>

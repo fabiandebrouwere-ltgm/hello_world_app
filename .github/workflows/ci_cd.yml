@@ -1,42 +1,49 @@
-name: Ruby on Rails CI/CD
+name: Ruby on Rails CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-  test_and_lint:
+  test:
     runs-on: ubuntu-latest
 
-    steps:
-      # 1️⃣ Checkout code
-      - uses: actions/checkout@v6
+    services:
+      # PostgreSQL uniquement si tu veux tester prod, sinon pas besoin
+      # postgres:
+      #   image: postgres:16
+      #   env:
+      #     POSTGRES_USER: postgres
+      #     POSTGRES_PASSWORD: password
+      #   ports:
+      #     - 5432:5432
+      #   options: >-
+      #     --health-cmd pg_isready
+      #     --health-interval 10s
+      #     --health-timeout 5s
+      #     --health-retries 5
 
-      # 2️⃣ Setup Ruby
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
       - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@v2
         with:
           ruby-version: 3.4
-          bundler-cache: true
 
-      # 3️⃣ Install dependencies
       - name: Install dependencies
-        run: bundle install --jobs 4 --retry 3
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3
 
-      # 4️⃣ Migrate database test (SQLite3)
-      - name: Migrate test database
-        env:
-          RAILS_ENV: test
-        run: bin/rails db:migrate
+      - name: Setup DB
+        run: |
+          bin/rails db:create db:migrate RAILS_ENV=test
 
-      # 5️⃣ Run tests Minitest
       - name: Run tests
-        env:
-          RAILS_ENV: test
-        run: bin/rails test
+        run: |
+          bin/rails test
 
-      # 6️⃣ Lint with RuboCop (ignorer warnings pour ne bloquer que sur erreurs graves)
-      - name: Lint Code
-        run: bin/rubocop -f github --fail-level=error

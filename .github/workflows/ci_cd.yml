@@ -1,33 +1,35 @@
-~~~{"variant":"standard","title":"Minimal CI/CD YAML pour tests SQLite","id":"91547"}
 name: Ruby on Rails CI (SQLite)
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+push:
+branches:
+- main
+pull_request:
+branches:
+- main  # ou toutes les branches si tu veux
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+test:
+runs-on: ubuntu-latest
+steps:
+- uses: actions/checkout@v3
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.4
+```
+  - name: Set up Ruby
+    uses: ruby/setup-ruby@v1
+    with:
+      ruby-version: 3.4
 
-      - name: Install dependencies
-        run: |
-          gem install bundler
-          bundle install --jobs 4 --retry 3
+  - name: Install dependencies
+    run: |
+      gem install bundler
+      bundle install --jobs 4 --retry 3
 
-      - name: Set up database
-        run: |
-          bin/rails db:setup
+  - name: Set up database
+    run: |
+      bin/rails db:setup
 
-      - name: Run tests
-        run: |
-          bin/rails test
-~~~
+  - name: Run tests
+    run: |
+      bin/rails test
+```

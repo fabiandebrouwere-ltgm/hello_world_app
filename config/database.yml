@@ -1,17 +1,23 @@
-# config/database.yml
-
 default: &default
-  adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+timeout: 5000
 
 development:
-  <<: *default
-  database: db/development.sqlite3
+<<: *default
+adapter: sqlite3
+database: db/development.sqlite3
 
 test:
-  <<: *default
-  database: db/test.sqlite3
+<<: *default
+adapter: sqlite3
+database: db/test.sqlite3
 
 production:
-  url: <%= ENV['DATABASE_URL'] %>
+<<: *default
+adapter: postgresql
+url: <%= ENV['DATABASE_URL'] %>
+pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+# optional: add SSL if needed
+
+# sslmode: require

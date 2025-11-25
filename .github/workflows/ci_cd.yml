@@ -1,5 +1,6 @@
 name: Ruby on Rails CI/CD
 
+# Déclenche le workflow sur push ou pull request vers main
 on:
   push:
     branches: [ main ]
@@ -7,29 +8,32 @@ on:
     branches: [ main ]
 
 jobs:
-  test_and_deploy:
+  test_and_lint:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    # 1️⃣ Récupère le code du repo
+    - uses: actions/checkout@v6
 
+    # 2️⃣ Installe Ruby 3.4 et Bundler
     - name: Setup Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 3.4
+        bundler-cache: true
 
+    # 3️⃣ Installe les dépendances
     - name: Install dependencies
       run: bundle install --jobs 4 --retry 3
 
+    # 4️⃣ Crée et migre la base de test SQLite3
     - name: Setup Database for Tests
       run: bin/rails db:create db:migrate
 
-    - name: Run tests
+    # 5️⃣ Lance les tests Minitest
+    - name: Run Tests
       run: bin/rails test
 
-    - name: Deploy to Render
-      if: github.ref == 'refs/heads/main' && success()
-      uses: render-examples/deploy@v1
-      with:
-        api_key: ${{ secrets.RENDER_API_KEY }}
-        service_id: ${{ secrets.RENDER_SERVICE_ID }}
+    # 6️⃣ Lint avec RuboCop
+    - name: Lint Code
+      run: bin/rubocop -f github
